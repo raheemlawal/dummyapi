@@ -18,14 +18,8 @@ tags:
 ## Endpoints (to retreive data from hosted Supabase DB)
 
 - GET
-  - /
-  - /firstuser
-  - /seconduser
+  - /user/{id}
   - /users
-
-- POST
-  - /users
-
 
 ## 💁‍♀️ How to use
 
