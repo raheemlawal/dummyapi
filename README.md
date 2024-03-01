@@ -20,6 +20,7 @@ tags:
 - GET
   - /user/{id}
   - /users
+  - /ai-gemini
 
 ## 💁‍♀️ How to use
 
