@@ -53,7 +53,7 @@ async def get_all_users():
     response = supabase.table('User').select("*").execute()
     return response.data
 
-@app.post("/gemini")
+@app.get("/gemini")
 async def get_all_users(prompt = 'what is the weather right now in Los Angeles?'):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(prompt)
