@@ -4,12 +4,23 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
+import pathlib
+import textwrap
+
+import google.generativeai as genai
+
+from IPython.display import display
+from IPython.display import Markdown
+
 
 load_dotenv()
 
 url: str = os.environ["SUPAURL"]
 key: str = os.environ["SUPAKEY"]
 supabase: Client = create_client(url, key)
+
+aiapikey: str = os.environ["AISTUDIO"]
+genai.configure(api_key=aiapikey)
 
 app = FastAPI()
 
@@ -41,3 +52,11 @@ async def get_first_user(id: int):
 async def get_all_users():
     response = supabase.table('User').select("*").execute()
     return response.data
+
+@app.post("/gemini")
+async def get_all_users(prompt = 'what is the weather right now in Los Angeles?'):
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(prompt)
+
+    text = response.text.replace('•', '  *')
+    return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
