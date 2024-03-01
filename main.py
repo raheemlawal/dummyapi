@@ -53,10 +53,11 @@ async def get_all_users():
     response = supabase.table('User').select("*").execute()
     return response.data
 
-@app.get("/gemini")
-async def get_all_users(prompt = 'what is the weather right now in Los Angeles?'):
+@app.get("/ai-gemini")
+async def get_all_users(prompt = 'what does this ai api do?'):
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(prompt)
 
     text = response.text.replace('•', '  *')
-    return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
+    return text
+    #return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
